@@ -1,0 +1,50 @@
+USE sakila;
+select first_name, last_name from actor WHERE first_name='John';
+
+Select first_name, last_name from actor WHERE last_name='Neeson';
+
+Select actor_id, first_name, last_name from actor WHERE actor_id%10 = 0;
+
+SELECT film_id, title, description FROM film WHERE film_id=100;
+
+Select title, rating FROM film WHERE rating='R';
+
+Select title, rating FROM film WHERE rating!='R';
+
+Select title, length FROM film ORDER BY length ASC LIMIT 10;
+
+SELECT title, length FROM film order by length DESC;
+
+SELECT title, special_features FROM film
+WHERE special_features=(SELECT special_features WHERE special_features='Deleted Scenes');
+
+SELECT DISTINCT last_name FROM actor 
+GROUP BY last_name
+ORDER BY last_name DESC;
+
+SELECT last_name, COUNT(last_name) AS frequency FROM actor
+GROUP BY last_name
+HAVING COUNT(last_name)>1
+ORDER BY frequency DESC;
+
+SELECT count(fa.actor_id), ac.first_name, ac.last_name
+FROM actor ac JOIN film_actor fa ON ac.actor_id = fa.actor_id
+GROUP BY fa.actor_id
+ORDER BY count(fa.actor_id) DESC LIMIT 1;
+
+# Academy Dinosaur
+
+SELECT AVG(length) FROM film;
+
+# Film avg length by category
+
+SELECT * FROM film_text
+WHERE description LIKE '%robot%';
+
+SELECT COUNT(film_id), release_year FROM film WHERE release_year!='2010';  
+
+select * from film_text;
+select * from category;
+
+SELECT * FROM film_category fc WHERE category_id=11
+JOIN film f ON f.film_id=fc.film_id;
